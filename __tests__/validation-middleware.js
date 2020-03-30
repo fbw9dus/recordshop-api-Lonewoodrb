@@ -1,4 +1,4 @@
-const { validateInputs } = require("../middleware/validator")
+const { validateInputs } = require("../middleware/security")
 const { body } = require("express-validator")
 const userValidationRules = [
     body("email")
