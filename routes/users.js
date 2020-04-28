@@ -1,9 +1,10 @@
+ 
 const express = require("express");
 const router = express.Router();
 const auth = require('../middleware/authenticator')
 const {userValidationRules} = require('../lib/validation/userRules')
 const {validateInputs} = require('../middleware/validator')
-const isAdmin = require("../middleware/rolesAufenticator")
+const isAdmin = require("../middleware/rolesAuthenticator")
 const {
   getUsers,
   getUser,
