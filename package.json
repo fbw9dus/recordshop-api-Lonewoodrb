@@ -10,15 +10,18 @@
     "test": "jest --runInBand"
   },
   "dependencies": {
+    "bcrypt": "^4.0.1",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "express-validator": "^6.4.0",
     "faker": "^4.1.0",
     "http-errors": "^1.7.3",
+    "install": "^0.13.0",
     "lowdb": "^1.0.0",
-    "mongoose": "^5.7.1",
-    "morgan": "~1.9.1"
+    "mongoose": "^5.9.10",
+    "morgan": "~1.9.1",
+    "node-pre-gyp": "^0.14.0"
   },
   "devDependencies": {
     "nodemon": "^1.19.2",
