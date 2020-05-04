@@ -14,18 +14,21 @@ exports.getOrder = async (req, res, next) => {
   res.status(200).send(order);
 };
 
-exports.deleteOrder = (req, res, next) => {
-  const { id } = req.params;
-  // Schreib hier code um die Bestellung mit der id aus params aus der orders-Collection zu löschen
-
-  res.status(200).send(order);
+exports.deleteOrder = async (req, res, next) => {
+  try{
+    const order = await Order.findByIdAndDelete(req.params.id);
+    if (!order) throw new createError.NotFound();
+    res.status(200).send(order);
+  } catch (e) {
+    next(e);
+  }
 };
 
-exports.updateOrder = (req, res, next) => {
+exports.updateOrder = async (req, res, next) => {
   const { id } = req.params;
   const dt = req.body;
   // Schreib hier code um die Bestellung mit der id aus params in der orders-Collection mit den Daten aus req.body zu aktualisieren
-
+  const order = await Order.findByIdAndUpdate(id, dt, {new:true})
   res.status(200).send(order);
 };
 

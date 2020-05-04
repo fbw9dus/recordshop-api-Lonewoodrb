@@ -19,11 +19,17 @@ exports.getUser = async (req, res, next) => {
   res.status(200).send(user);
 };
 
-exports.deleteUser = (req, res, next) => {
-  const { id } = req.params;
-  // Schreib hier code um den Kunden mit der id aus params aus der users-Collection zu löschen
-const user = User.findById().select("-password")
-  res.status(200).send(user);
+exports.deleteUser = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    // Schreib hier code um den Kunden mit der id aus params aus der users-Collection zu löschen
+    const user = await User.findByIdAndDelete(id).select("-password")
+    if(!user) throw new createError.NotFound
+    res.status(200).send(user);
+  } catch (error) {
+    next(error)
+  }
+  
 };
 
 exports.updateUser = async (req, res, next) => {
@@ -62,12 +68,14 @@ exports.loginUser = async (req, res, next) => {
   const { email, password } = req.body
 
   try {
-    let user = await User.findOne({ email }).select('-password')
+    let user = await User.findOne({ email }).select('+password')
     const valid = encryption.compare(password, user.password)
 
     const token = user.generateAuthToken()
     await user.save()
     
+    user = await User.findOne({ email }).select('-password')
+
     if(!valid) throw new createError.NotFound()
 
     res
