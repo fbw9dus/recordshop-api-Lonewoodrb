@@ -1,4 +1,5 @@
-/** EXTERNAL DEPENDENCIES */
+require("dotenv").config()
+
 const express = require("express");
 const path = require("path");
 const cookieParser = require("cookie-parser");
@@ -10,8 +11,8 @@ const indexRouter = require("./routes/index");
 const usersRouter = require("./routes/users");
 const recordsRouter = require("./routes/records");
 const ordersRouter = require("./routes/orders");
-const { setCors } = require("./middleware/security");
 
+const { setCors } = require("./middleware/security");
 
 /** INIT */
 const app = express();
@@ -24,14 +25,14 @@ mongoose.connect(process.env.DB, {
   useNewUrlParser: true,
   useCreateIndex: true,
   useUnifiedTopology: true
-});
+})
+.then(()=> console.log('mongoDB connected'))
+.catch(err => console.log(err));
 
 mongoose.connection.on("error", console.error);
 mongoose.connection.on("open", function() {
   console.log("Database connection established...");
 });
-
-
 
 /** REQUEST PARSERS */
 app.use(express.json());
@@ -65,5 +66,3 @@ app.use(function(err, req, res, next) {
 
 /** EXPORT PATH */
 module.exports = app;
-
-/*ENV Vars*/
