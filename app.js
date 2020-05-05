@@ -12,6 +12,7 @@ const recordsRouter = require("./routes/records");
 const ordersRouter = require("./routes/orders");
 const { setCors } = require("./middleware/security");
 
+
 /** INIT */
 const app = express();
 
@@ -64,3 +65,5 @@ app.use(function(err, req, res, next) {
 
 /** EXPORT PATH */
 module.exports = app;
+
+/*ENV Vars*/
